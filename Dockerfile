@@ -39,3 +39,4 @@ USER app
 WORKDIR /app
 
 ENTRYPOINT ["blueprints-smoke-python-cli"]
+# verify 2026-05-06T04:18:52.517333+00:00
