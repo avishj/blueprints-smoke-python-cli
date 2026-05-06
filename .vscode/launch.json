@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug CLI",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "blueprints_smoke_python_cli",
+      "args": ["--help"],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "BLUEPRINTS_SMOKE_PYTHON_CLI_VERBOSE": "true"
+      }
+    }
+  ]
+}
