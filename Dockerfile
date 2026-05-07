@@ -42,3 +42,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
     CMD blueprints-smoke-python-cli --version || exit 1
 
 ENTRYPOINT ["blueprints-smoke-python-cli"]
+# verify 2026-05-07T09:49:12.568026+00:00
