@@ -1,0 +1,13 @@
+# Changes here will be overwritten by Copier; DO NOT EDIT MANUALLY
+_src_path: stacks/python-cli
+author_email: avish.j@pm.me
+author_name: Avish J
+copyright_holder: Avish J <avish.j@pm.me>
+copyright_year: '2026'
+description: A CLI application.
+env_prefix: BLUEPRINTS_SMOKE_PYTHON_CLI_
+github_topics: python, cli, cyclopts
+owner: avishj
+project_name: blueprints-smoke-python-cli
+sonar_org: avishj
+sonar_project_key: avishj_blueprints-smoke-python-cli
