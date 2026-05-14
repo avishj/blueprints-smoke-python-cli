@@ -1,0 +1,45 @@
+# SPDX-FileCopyrightText: 2026 Avish J <avish.j@pm.me>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+"""Shared test fixtures."""
+
+from collections.abc import Callable
+from pathlib import Path
+from typing import NamedTuple
+
+import pytest
+
+from blueprints_smoke_python_cli.cli import app
+
+
+class CliResult(NamedTuple):
+    """Captures exit code, stdout, and stderr from a cyclopts app invocation."""
+
+    exit_code: int
+    output: str
+    errors: str
+
+
+@pytest.fixture(scope="session")
+def fixtures_dir() -> Path:
+    """Return the directory containing shared fixtures."""
+    return Path(__file__).resolve().parent / "fixtures"
+
+
+@pytest.fixture
+def invoke(capsys: pytest.CaptureFixture[str]) -> Callable[..., CliResult]:
+    """Invoke the CLI app and return a result with exit_code and output."""
+
+    def _invoke(*args: str) -> CliResult:
+        try:
+            app.meta(list(args))
+            captured = capsys.readouterr()
+            return CliResult(exit_code=0, output=captured.out, errors=captured.err)
+        except SystemExit as exc:
+            captured = capsys.readouterr()
+            raw = exc.code
+            code = raw if isinstance(raw, int) else (0 if raw is None else 1)
+            return CliResult(exit_code=code, output=captured.out, errors=captured.err)
+
+    return _invoke
