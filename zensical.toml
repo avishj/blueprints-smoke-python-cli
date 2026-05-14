@@ -1,0 +1,61 @@
+# SPDX-FileCopyrightText: 2026 Avish J <avish.j@pm.me>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+[project]
+site_name = "blueprints-smoke-python-cli"
+site_description = "blueprints-smoke-python-cli documentation."
+site_url = "https://avishj.github.io/blueprints-smoke-python-cli/"
+repo_url = "https://github.com/avishj/blueprints-smoke-python-cli"
+repo_name = "avishj/blueprints-smoke-python-cli"
+edit_uri = "edit/main/docs/"
+copyright = "Copyright &copy; 2026 &ndash; Present Avish J and contributors"
+nav = [
+    { "Home" = "index.md" },
+]
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+toggle.icon = "material/brightness-7"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+toggle.icon = "material/brightness-4"
+toggle.name = "Switch to light mode"
+
+[project.theme]
+features = [
+    "content.action.edit",
+    "content.action.view",
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tabs.link",
+    "navigation.expand",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.instant",
+    "navigation.instant.prefetch",
+    "navigation.instant.progress",
+    "navigation.path",
+    "navigation.sections",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["src"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+show_source = true
+show_root_heading = true
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+docstring_style = "google"
+merge_init_into_class = true
+members_order = "source"
