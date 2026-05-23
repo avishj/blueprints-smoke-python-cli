@@ -1,0 +1,44 @@
+# SPDX-FileCopyrightText: 2026 Avish J <avish.j@pm.me>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# v0.11.14
+FROM ghcr.io/astral-sh/uv:0.11.14@sha256:1025398289b62de8269e70c45b91ffa37c373f38118d7da036fb8bb8efc85d97 AS uv
+
+# 3.13-slim
+FROM python:3.13.13-slim@sha256:35592101a8e0342f36cb17a148ed40796b38dc7f2891dcb10bb483af75b2fd4a AS builder
+
+COPY --from=uv /uv /uvx /usr/local/bin/
+
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_DOWNLOADS=never
+
+WORKDIR /app
+
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    uv sync --frozen --no-install-project --no-dev
+
+COPY . .
+
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-dev
+
+# 3.13-slim
+FROM python:3.13.13-slim@sha256:35592101a8e0342f36cb17a148ed40796b38dc7f2891dcb10bb483af75b2fd4a AS runtime
+
+RUN groupadd --system app && useradd --system --gid app --no-create-home app
+
+COPY --from=builder --chown=app:app /app /app
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+USER app
+WORKDIR /app
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+    CMD ["blueprints-smoke-python-cli", "--version"]
+
+ENTRYPOINT ["blueprints-smoke-python-cli"]
