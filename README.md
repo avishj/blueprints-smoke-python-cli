@@ -111,3 +111,5 @@ Contributions are welcome. Please open an issue first to discuss what you would 
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=avishj/blueprints-smoke-python-cli&type=Date)](https://star-history.com/#avishj/blueprints-smoke-python-cli&Date)
+
+<!-- verify 2026-05-23T06:28:53.384902+00:00 -->
