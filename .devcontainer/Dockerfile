@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: 2026 Avish J <avish.j@pm.me>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# v0.11.14
+FROM ghcr.io/astral-sh/uv:0.11.14@sha256:1025398289b62de8269e70c45b91ffa37c373f38118d7da036fb8bb8efc85d97 AS uv
+
+# 3.0.7-3.13
+FROM mcr.microsoft.com/devcontainers/python:3.0.7-3.13@sha256:8633f2185d9a2d4535fc2d74ccabedf4146ba2e67cf169ea45bc6c5e5684dc09
+
+COPY --from=uv /uv /uvx /usr/local/bin/
+
+# 1.51.0
+RUN UV_TOOL_BIN_DIR=/usr/local/bin UV_TOOL_DIR=/opt/uv-tools uv tool install rust-just==1.51.0
+
+USER vscode
+
+HEALTHCHECK --interval=5m --timeout=5s --start-period=10s --retries=3 \
+    CMD uv --version && just --version

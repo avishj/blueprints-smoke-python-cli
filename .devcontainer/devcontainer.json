@@ -1,0 +1,40 @@
+{
+  "name": "blueprints-smoke-python-cli Dev",
+  "build": { "dockerfile": "Dockerfile" },
+  "updateContentCommand": "uv sync",
+  "postCreateCommand": [
+    "uvx",
+    "--with",
+    "pre-commit-uv==4.2.1",
+    "pre-commit@4.6.0",
+    "install",
+    "--install-hooks"
+  ],
+  "remoteUser": "vscode",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "Zensical",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "crate-ci.typos-vscode",
+        "DavidAnson.vscode-markdownlint",
+        "EditorConfig.EditorConfig",
+        "GitHub.vscode-github-actions",
+        "GitHub.vscode-pull-request-github",
+        "tamasfe.even-better-toml",
+        "usernamehw.errorlens",
+
+        "astral-sh.ty",
+        "charliermarsh.ruff",
+        "ms-python.python",
+        "nefrob.vscode-just-syntax",
+        "SonarSource.sonarlint-vscode"
+      ]
+    }
+  }
+}
