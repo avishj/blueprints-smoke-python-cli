@@ -7,3 +7,4 @@
 from importlib.metadata import version
 
 __version__ = version("blueprints-smoke-python-cli")
+# verify 2026-05-31T04:28:34.365535+00:00
